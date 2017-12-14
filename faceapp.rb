@@ -11,12 +11,10 @@ Dotenv.load
 credentials = Aws::Credentials.new(ENV['AWS_KEY'], ENV['AWS_SECRET'])
 Aws.config.update(region: 'us-east-1', credentials: credentials)
 
-FACE_COLLECTION = 'TeremFaces'.freeze
-
 post '/' do
   content_type :json
   client = Aws::Rekognition::Client.new
-  response = client.search_faces_by_image(collection_id: FACE_COLLECTION,
+  response = client.search_faces_by_image(collection_id: ENV['FACE_COLLECTION_ID'],
                                           max_faces: 1,
                                           face_match_threshold: 80,
                                           image: {
